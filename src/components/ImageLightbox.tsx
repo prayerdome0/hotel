@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
+import HotelImage from '@/components/HotelImage';
 import {
   X,
   ChevronLeft,
@@ -10,8 +10,6 @@ import {
   Pause,
   ZoomIn,
   ZoomOut,
-  Sparkles,
-  Download,
 } from 'lucide-react';
 import { GalleryPhoto } from '@/types';
 
@@ -31,10 +29,6 @@ export default function ImageLightbox({
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
-
-  useEffect(() => {
-    setCurrentIndex(initialIndex);
-  }, [initialIndex]);
 
   const currentPhoto = photos[currentIndex] || photos[0];
 
@@ -161,7 +155,7 @@ export default function ImageLightbox({
             isZoomed ? 'scale-125 cursor-grab' : 'scale-100'
           }`}
         >
-          <Image
+          <HotelImage
             src={currentPhoto.url}
             alt={currentPhoto.title}
             fill
@@ -204,7 +198,7 @@ export default function ImageLightbox({
                   : 'opacity-40 hover:opacity-80'
               }`}
             >
-              <Image
+              <HotelImage
                 src={photo.url}
                 alt={photo.title}
                 fill

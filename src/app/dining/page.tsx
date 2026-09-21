@@ -1,160 +1,88 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import {
-  Utensils,
-  Wine,
-  Clock,
-  Users,
-  Sparkles,
-  Calendar,
-  CheckCircle2,
-  ChevronRight,
-} from 'lucide-react';
-import BookingModal from '@/components/BookingModal';
-import { DINING_VENUES, HOTEL_INFO } from '@/data/hotelData';
+import React from 'react';
+import Link from 'next/link';
+import { CheckCircle2, Users, ArrowRight } from 'lucide-react';
+import PageHero from '@/components/PageHero';
+import SectionHeading from '@/components/SectionHeading';
+import DeveloperCTA from '@/components/DeveloperCTA';
+import HotelImage from '@/components/HotelImage';
+import { DINING_HALL_INFO, HOTEL_INFO } from '@/data/hotelData';
 
 export default function DiningPage() {
-  const [bookingOpen, setBookingOpen] = useState(false);
-
   return (
-    <div className="space-y-16 pb-20">
-      {/* Header Banner */}
-      <section className="relative py-20 bg-gradient-to-b from-amber-950/40 via-slate-950 to-slate-950 border-b border-amber-500/20 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <Image
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop"
-            alt="SWDL Gastronomy"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-            $12.8M Annual High-Margin F&B Yield
+    <div className="space-y-14 sm:space-y-16 pb-20">
+      <PageHero
+        badge="Dining Hall"
+        title={DINING_HALL_INFO.name}
+        subtitle={`${DINING_HALL_INFO.tagline}. ${DINING_HALL_INFO.capacity} — with buffet service, serving staff and event support from our team.`}
+        image={DINING_HALL_INFO.image}
+      />
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="relative h-72 sm:h-[420px] rounded-3xl overflow-hidden border border-slate-800 group">
+          <HotelImage src={DINING_HALL_INFO.image} alt={DINING_HALL_INFO.name} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-xs text-slate-200">
+            <Users className="w-4 h-4 text-amber-400 shrink-0" />
+            <span>{DINING_HALL_INFO.capacity}</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-serif-luxury font-bold text-white leading-tight">
-            World-Class Gastronomy & Wine Cellars
-          </h1>
-          <p className="text-sm sm:text-lg text-slate-300 max-w-3xl font-light">
-            SWDL hosts four signature culinary destinations led by internationally acclaimed chefs, featuring sustainably sourced ocean harvest and rare vintage cellars.
-          </p>
         </div>
-      </section>
-
-      {/* Venues Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {DINING_VENUES.map((venue, idx) => (
-          <div
-            key={venue.id}
-            id={venue.id}
-            className="glass-card rounded-3xl overflow-hidden border border-amber-500/20 group hover:border-amber-500/40 transition-all duration-300"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-              {/* Image & Gallery Column */}
-              <div className="lg:col-span-6 relative min-h-[320px] sm:min-h-[440px] flex flex-col justify-between">
-                <div className="relative w-full h-full min-h-[300px]">
-                  <Image
-                    src={venue.heroImage}
-                    alt={venue.name}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20" />
-                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-amber-300 border border-amber-500/30 text-xs font-bold uppercase tracking-wider">
-                    {venue.concept}
-                  </span>
+        <div className="space-y-5">
+          <SectionHeading
+            badge="Banquets & celebrations"
+            title="One Hall, Endless Occasions"
+            subtitle="Host sit-down dinners, wedding receptions, church celebrations and corporate banquets in a spacious, air-conditioned hall with full catering from our kitchen."
+          />
+          <div>
+            <h3 className="text-sm font-bold text-white mb-2">Ideal for</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              {DINING_HALL_INFO.uses.map((x) => (
+                <div key={x} className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>{x}</span>
                 </div>
-
-                {venue.gallery.length > 1 && (
-                  <div className="grid grid-cols-3 gap-1 p-2 bg-slate-950 border-t border-slate-900">
-                    {venue.gallery.slice(0, 3).map((imgUrl, gIdx) => (
-                      <div key={gIdx} className="relative h-18 sm:h-20 rounded-lg overflow-hidden border border-slate-800">
-                        <Image
-                          src={imgUrl}
-                          alt={`${venue.name} gallery ${gIdx + 1}`}
-                          fill
-                          sizes="160px"
-                          className="object-cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Venue Details */}
-              <div className="lg:col-span-6 p-6 sm:p-10 flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
-                  <div>
-                    <span className="text-xs uppercase font-bold text-amber-400 tracking-wider">
-                      {venue.cuisine}
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white mt-1">
-                      {venue.name}
-                    </h2>
-                    <p className="text-xs text-slate-400 mt-1">
-                      Executive Chef: <strong className="text-slate-200">{venue.chef}</strong>
-                    </p>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    {venue.description}
-                  </p>
-
-                  {/* Signature Dishes Card */}
-                  <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-2.5">
-                    <span className="text-xs uppercase font-bold text-amber-300 tracking-wider block">
-                      Signature Degustation Selections:
-                    </span>
-                    <div className="space-y-2">
-                      {venue.signatureDishes.map((dish, dIdx) => (
-                        <div key={dIdx} className="flex items-start justify-between gap-2 text-xs border-b border-slate-800/60 pb-1.5 last:border-0 last:pb-0">
-                          <div>
-                            <span className="font-semibold text-white">{dish.name}</span>
-                            <p className="text-[11px] text-slate-400">{dish.desc}</p>
-                          </div>
-                          <span className="font-mono font-bold text-amber-300 shrink-0">{dish.price}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Metadata: Hours, Capacity, Dress Code */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-400 pt-2 border-t border-slate-800">
-                    <div>
-                      <span className="block text-slate-500">Service Hours</span>
-                      <span className="text-slate-200 font-medium">{venue.hours}</span>
-                    </div>
-                    <div>
-                      <span className="block text-slate-500">Capacity</span>
-                      <span className="text-slate-200 font-medium">{venue.seatingCapacity} Seats</span>
-                    </div>
-                    <div>
-                      <span className="block text-slate-500">Dress Code</span>
-                      <span className="text-slate-200 font-medium">{venue.dressCode}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    onClick={() => setBookingOpen(true)}
-                    className="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm gold-btn flex items-center gap-2 shadow"
-                  >
-                    <Calendar className="w-4 h-4" />
-                    <span>Reserve Dining Table</span>
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        ))}
+          <div>
+            <h3 className="text-sm font-bold text-white mb-2">What we provide</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              {DINING_HALL_INFO.points.map((x) => (
+                <div key={x} className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>{x}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/contact" className="px-6 py-3 rounded-xl text-sm font-bold gold-btn">
+              Enquire About the Hall
+            </Link>
+            <Link href="/restaurant" className="px-6 py-3 rounded-xl text-sm font-semibold gold-btn-outline flex items-center gap-2">
+              <span>See catering & menu</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
       </section>
 
-      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="glass-card rounded-2xl p-6 sm:p-8 text-center space-y-3">
+          <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">Planning a wedding, dinner or celebration?</h2>
+          <p className="text-sm text-slate-400 max-w-2xl mx-auto">
+            Tell us your date, guest numbers and menu preferences and we will help you plan the setup, catering and programme.
+            Call us on <a href={HOTEL_INFO.phoneHref} className="text-amber-300 font-semibold hover:underline">{HOTEL_INFO.phone}</a>.
+          </p>
+          <Link href="/events" className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-300 hover:text-amber-200">
+            <span>See all event venues & packages</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
+      <DeveloperCTA />
     </div>
   );
 }

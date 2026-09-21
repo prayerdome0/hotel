@@ -1,168 +1,178 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import {
-  Users,
-  Maximize2,
-  Sparkles,
-  Calendar,
-  CheckCircle2,
-  Building2,
-  Send,
-} from 'lucide-react';
-import BookingModal from '@/components/BookingModal';
-import { EVENT_SPACES, HOTEL_INFO } from '@/data/hotelData';
+import React from 'react';
+import Link from 'next/link';
+import { Users, CheckCircle2, ArrowRight, Info, CalendarCheck } from 'lucide-react';
+import PageHero from '@/components/PageHero';
+import SectionHeading from '@/components/SectionHeading';
+import DeveloperCTA from '@/components/DeveloperCTA';
+import HotelImage from '@/components/HotelImage';
+import { CONFERENCE_SPACES, EVENT_PACKAGES, CONFERENCE_SUPPORT, HOTEL_INFO } from '@/data/hotelData';
+import { kwacha } from '@/lib/format';
 
 export default function EventsPage() {
-  const [bookingOpen, setBookingOpen] = useState(false);
-
   return (
-    <div className="space-y-16 pb-20">
-      {/* Header Banner */}
-      <section className="relative py-20 bg-gradient-to-b from-amber-950/40 via-slate-950 to-slate-950 border-b border-amber-500/20 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <Image
-            src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1920&auto=format&fit=crop"
-            alt="SWDL Events & Ballroom"
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-            Up to 750 Guests • Pillarless Imperial Ballroom
+    <div className="space-y-14 sm:space-y-16 pb-20">
+      <PageHero
+        badge="Conference & Events"
+        title="Halls & Venues for Every Occasion"
+        subtitle="Conferences, board meetings, workshops, church services, weddings, birthdays and graduations — with seating for up to 300 guests, sound, projector and catering."
+        image="/images/conference-hall.jpg"
+      />
+
+      {/* Who it's for */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="glass-card rounded-2xl p-6 sm:p-8 space-y-4">
+          <h2 className="text-lg sm:text-xl font-bold font-serif-luxury text-white">
+            Perfect for companies, churches, schools, NGOs, government departments & families
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+            {['Corporate conferences', 'Board & management meetings', 'Staff training & workshops', 'Church services & crusades', 'Weddings & kitchen parties', 'Graduations & award nights', 'Product launches', 'Birthdays & private parties'].map((x) => (
+              <div key={x} className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-slate-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span>{x}</span>
+              </div>
+            ))}
           </div>
-          <h1 className="text-3xl sm:text-5xl font-serif-luxury font-bold text-white leading-tight">
-            Events, International Summits & Weddings
-          </h1>
-          <p className="text-sm sm:text-lg text-slate-300 max-w-3xl font-light">
-            Host global sovereign conferences, high-profile corporate board retreats, and unforgettable coastal gala weddings against the backdrop of the ocean.
-          </p>
         </div>
       </section>
 
-      {/* Spaces Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {EVENT_SPACES.map((space) => (
-            <div
-              key={space.id}
-              className="glass-card rounded-3xl overflow-hidden flex flex-col justify-between border border-amber-500/20 group hover:border-amber-500/40 transition"
-            >
-              <div className="relative h-64 w-full overflow-hidden">
-                <Image
-                  src={space.image}
-                  alt={space.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-108"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/20" />
-                <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-amber-300 border border-amber-500/30 text-xs font-bold uppercase">
-                  {space.type}
-                </span>
-                <span className="absolute bottom-3 right-3 text-xs font-mono font-bold text-amber-300 bg-slate-950/80 px-2.5 py-1 rounded">
-                  {space.sqft.toLocaleString()} sq.ft
-                </span>
+      {/* Spaces */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <SectionHeading
+          badge="Our venues"
+          title="Choose Your Hall"
+          subtitle="Four flexible venues with professional equipment. All rates below are sample rates in Zambian Kwacha."
+        />
+        {CONFERENCE_SPACES.map((s, idx) => (
+          <div
+            key={s.id}
+            id={s.id}
+            className="glass-card rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 scroll-mt-24"
+          >
+            <div className={`lg:col-span-5 relative min-h-[260px] sm:min-h-[340px] ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
+              <HotelImage src={s.image} alt={s.name} fill sizes="(max-width: 1024px) 100vw, 42vw" className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+              <span className="absolute top-4 left-4 px-3 py-1 rounded-lg bg-slate-950/80 text-amber-300 border border-amber-500/40 text-[11px] font-bold uppercase tracking-wider">
+                {s.type}
+              </span>
+            </div>
+            <div className={`lg:col-span-7 p-6 sm:p-8 space-y-4 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold font-serif-luxury text-white">{s.name}</h3>
+                <p className="text-xs text-slate-400 mt-1">{s.sizeSqm} m² venue</p>
               </div>
+              <p className="text-sm text-slate-300 leading-relaxed">{s.description}</p>
 
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold font-serif-luxury text-white group-hover:text-amber-300 transition">
-                    {space.name}
-                  </h3>
-                  <p className="text-xs text-slate-400 line-clamp-3">
-                    {space.description}
-                  </p>
-                </div>
-
-                {/* Capacities */}
-                <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800 space-y-1 text-xs">
-                  <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider block">
-                    Capacity Breakdown:
-                  </span>
-                  <div className="grid grid-cols-2 gap-1 text-slate-300">
-                    <div>Banquet: <strong className="text-white">{space.capacity.banquet}</strong></div>
-                    <div>Reception: <strong className="text-white">{space.capacity.reception}</strong></div>
-                    <div>Theater: <strong className="text-white">{space.capacity.theater}</strong></div>
-                    <div>Boardroom: <strong className="text-white">{space.capacity.boardroom}</strong></div>
-                  </div>
-                </div>
-
-                <div className="space-y-1 text-xs text-slate-300 pt-1">
-                  {space.amenities.map((a, i) => (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                      <span>{a}</span>
+              {/* Capacity */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5 text-amber-400" /> Seating capacity
+                </h4>
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 text-center">
+                  {[
+                    { l: 'Theatre', v: s.capacity.theatre },
+                    { l: 'Classroom', v: s.capacity.classroom },
+                    { l: 'Banquet', v: s.capacity.banquet },
+                    { l: 'Boardroom', v: s.capacity.boardroom },
+                    { l: 'Cocktail', v: s.capacity.cocktail },
+                  ].map((c) => (
+                    <div key={c.l} className="bg-slate-950 border border-slate-800 rounded-xl px-2 py-2">
+                      <span className="text-base sm:text-lg font-bold text-white font-mono block">{c.v > 0 ? c.v : '—'}</span>
+                      <span className="text-[10px] text-slate-500">{c.l}</span>
                     </div>
                   ))}
                 </div>
+              </div>
 
-                <div className="pt-2">
-                  <button
-                    onClick={() => setBookingOpen(true)}
-                    className="w-full py-2.5 rounded-xl font-semibold text-xs gold-btn text-center"
-                  >
-                    Request Event Proposal (RFP)
-                  </button>
+              {/* Equipment */}
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Equipment & services</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-slate-300">
+                  {s.equipment.map((e) => (
+                    <div key={e} className="flex items-start gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                      <span>{e}</span>
+                    </div>
+                  ))}
                 </div>
+              </div>
+
+              {/* Rates */}
+              <div className="pt-2 border-t border-slate-800">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Sample rates</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {s.rates.map((r) => (
+                    <div key={r.label} className="bg-amber-950/20 border border-amber-500/25 rounded-xl px-3 py-2.5 text-center">
+                      <span className="text-base font-bold text-amber-300 font-mono block">{kwacha(r.price)}</span>
+                      <span className="text-[11px] text-slate-400">{r.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col sm:flex-row gap-2 mt-3">
+                  <Link href="/contact" className="flex-1 py-2.5 rounded-xl text-xs font-bold gold-btn flex items-center justify-center gap-2">
+                    <CalendarCheck className="w-3.5 h-3.5" />
+                    <span>Enquire About This Hall</span>
+                  </Link>
+                  <a href={HOTEL_INFO.phoneHref} className="flex-1 py-2.5 rounded-xl text-xs font-semibold gold-btn-outline flex items-center justify-center gap-2">
+                    <span>Call {HOTEL_INFO.phone}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* Packages */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <SectionHeading
+          align="center"
+          badge="Event packages"
+          title="Simple Packages With Catering"
+          subtitle="Bundle hall hire with tea breaks and meals. Indicative sample pricing — final quotes depend on guest numbers and menu."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {EVENT_PACKAGES.map((p) => (
+            <div key={p.id} className="glass-card glass-card-hover rounded-2xl p-5 sm:p-6 flex flex-col gap-3">
+              <h3 className="text-base font-bold text-white font-serif-luxury">{p.name}</h3>
+              <p className="text-xs text-slate-400 leading-relaxed flex-1">{p.desc}</p>
+              <div className="pt-3 border-t border-slate-800">
+                <span className="text-xl font-bold text-amber-300 font-mono">{p.price}</span>
+                <span className="text-[11px] text-slate-500 block">{p.unit} • sample</span>
               </div>
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Comprehensive Capacity Chart */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-card rounded-3xl p-6 sm:p-8 space-y-4">
-          <h3 className="text-xl font-serif-luxury font-bold text-white">
-            Venue Technical Capacities Matrix
-          </h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs sm:text-sm">
-              <thead>
-                <tr className="border-b border-slate-800 text-amber-300 uppercase tracking-wider text-[11px]">
-                  <th className="py-3 px-4">Venue Name</th>
-                  <th className="py-3 px-4">Floor Area</th>
-                  <th className="py-3 px-4">Banquet</th>
-                  <th className="py-3 px-4">Reception</th>
-                  <th className="py-3 px-4">Theater</th>
-                  <th className="py-3 px-4">Ceiling Height</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
-                <tr>
-                  <td className="py-3.5 px-4 font-semibold text-white">SWDL Imperial Ballroom</td>
-                  <td className="py-3.5 px-4 font-mono">8,500 sq.ft</td>
-                  <td className="py-3.5 px-4">500 Guests</td>
-                  <td className="py-3.5 px-4 font-bold text-amber-300">750 Guests</td>
-                  <td className="py-3.5 px-4">600 Guests</td>
-                  <td className="py-3.5 px-4">24 Feet</td>
-                </tr>
-                <tr>
-                  <td className="py-3.5 px-4 font-semibold text-white">Sunset Ocean Terrace</td>
-                  <td className="py-3.5 px-4 font-mono">12,000 sq.ft</td>
-                  <td className="py-3.5 px-4">400 Guests</td>
-                  <td className="py-3.5 px-4 font-bold text-amber-300">650 Guests</td>
-                  <td className="py-3.5 px-4">450 Guests</td>
-                  <td className="py-3.5 px-4">Open Air</td>
-                </tr>
-                <tr>
-                  <td className="py-3.5 px-4 font-semibold text-white">Seedwel Executive Boardroom</td>
-                  <td className="py-3.5 px-4 font-mono">1,600 sq.ft</td>
-                  <td className="py-3.5 px-4">—</td>
-                  <td className="py-3.5 px-4">30 Guests</td>
-                  <td className="py-3.5 px-4">35 Guests</td>
-                  <td className="py-3.5 px-4">14 Feet</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 text-xs text-slate-400 flex gap-2 max-w-3xl mx-auto">
+          <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+          <span>
+            Extras available on request: extra décor, photography support, MC services, transport for delegates and
+            accommodation for out-of-town guests. <Link href="/contact" className="text-amber-300 hover:underline">Contact us for a tailored quote →</Link>
+          </span>
         </div>
       </section>
 
-      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
+      {/* Support strip */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="glass-card rounded-2xl p-6 sm:p-8">
+          <h3 className="text-base sm:text-lg font-bold text-white mb-4">Every event booking includes our support with</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {CONFERENCE_SUPPORT.map((x) => (
+              <div key={x} className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>{x}</span>
+              </div>
+            ))}
+          </div>
+          <Link href="/contact" className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-300 hover:text-amber-200">
+            <span>Start planning your event</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
+      <DeveloperCTA />
     </div>
   );
 }
