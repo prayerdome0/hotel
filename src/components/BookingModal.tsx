@@ -49,16 +49,16 @@ export default function BookingModal({ isOpen, onClose, selectedRoomId }: Bookin
       role="dialog"
       aria-modal="true"
       aria-label="Book a room"
-      className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 bg-white/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg bg-slate-900 border border-amber-500/30 rounded-2xl shadow-2xl p-6 sm:p-8 my-8 animate-slideUp"
+        className="relative w-full max-w-lg bg-gray-50 border border-red-500/30 rounded-2xl shadow-2xl p-6 sm:p-8 my-8 animate-slideUp"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition"
+          className="absolute top-4 right-4 p-2 rounded-lg bg-gray-200 text-gray-600 hover:text-white transition"
           aria-label="Close"
         >
           <X className="w-5 h-5" />
@@ -70,20 +70,20 @@ export default function BookingModal({ isOpen, onClose, selectedRoomId }: Bookin
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-serif-luxury font-bold text-white">Request Received</h3>
-            <p className="text-sm text-slate-300 max-w-md mx-auto">
+            <p className="text-sm text-gray-700 max-w-md mx-auto">
               Thank you, <strong className="text-white">{name}</strong>. Your booking request for the{' '}
-              <strong className="text-amber-300">{room.name}</strong>
+              <strong className="text-red-300">{room.name}</strong>
               {nights > 0 && (
                 <>
-                  {' '}({nights} night{nights > 1 ? 's' : ''}, est. <strong className="text-amber-300">{kwacha(estimated)}</strong>)
+                  {' '}({nights} night{nights > 1 ? 's' : ''}, est. <strong className="text-red-300">{kwacha(estimated)}</strong>)
                 </>
               )}{' '}
               has been noted.
             </p>
-            <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 flex gap-2 text-left">
-              <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-xl bg-white border border-gray-200 text-xs text-gray-600 flex gap-2 text-left">
+              <Info className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
               <span>
-                This is a <strong className="text-slate-200">demo booking interface</strong> for showcase purposes —
+                This is a <strong className="text-gray-800">demo booking interface</strong> for showcase purposes —
                 no real reservation has been made and no payment was taken. Connect a booking system or
                 WhatsApp line here to receive real bookings.
               </span>
@@ -95,25 +95,25 @@ export default function BookingModal({ isOpen, onClose, selectedRoomId }: Bookin
         ) : (
           <div className="space-y-5">
             <div>
-              <span className="text-[10px] px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase tracking-wider">
+              <span className="text-[10px] px-2.5 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 font-bold uppercase tracking-wider">
                 Demo booking
               </span>
               <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white mt-2 flex items-center gap-2">
-                <CalendarCheck className="w-6 h-6 text-amber-400" />
+                <CalendarCheck className="w-6 h-6 text-red-400" />
                 Book Your Stay
               </h2>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-gray-600 mt-1">
                 Check-in {HOTEL_INFO.checkIn} • Check-out {HOTEL_INFO.checkOut} • {HOTEL_INFO.reception}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Room type</label>
+                <label className="block text-xs font-medium text-gray-700 mb-1">Room type</label>
                 <select
                   value={roomId}
                   onChange={(e) => setRoomId(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
                 >
                   {ROOMS.map((r) => (
                     <option key={r.id} value={r.id}>
@@ -125,33 +125,33 @@ export default function BookingModal({ isOpen, onClose, selectedRoomId }: Bookin
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Check-in</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Check-in</label>
                   <input
                     type="date"
                     required
                     min={todayISO()}
                     value={checkIn}
                     onChange={(e) => setCheckIn(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Check-out</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Check-out</label>
                   <input
                     type="date"
                     required
                     min={checkIn || todayISO()}
                     value={checkOut}
                     onChange={(e) => setCheckOut(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-gray-700 mb-1">
                   <span className="flex items-center gap-1">
-                    <Users className="w-3.5 h-3.5 text-amber-400" /> Guests (max {room.maxGuests})
+                    <Users className="w-3.5 h-3.5 text-red-400" /> Guests (max {room.maxGuests})
                   </span>
                 </label>
                 <input
@@ -161,39 +161,39 @@ export default function BookingModal({ isOpen, onClose, selectedRoomId }: Bookin
                   max={room.maxGuests}
                   value={guests}
                   onChange={(e) => setGuests(parseInt(e.target.value) || 1)}
-                  className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Full name</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Full name</label>
                   <input
                     type="text"
                     required
                     placeholder="Your name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Phone number</label>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">Phone number</label>
                   <input
                     type="tel"
                     required
                     placeholder="+260 ..."
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                    className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
                   />
                 </div>
               </div>
 
               {/* Live estimate */}
-              <div className="p-4 rounded-xl bg-amber-950/25 border border-amber-500/30 flex items-center justify-between">
-                <div className="text-xs text-slate-300">
-                  <span className="block text-slate-400 uppercase font-semibold text-[10px]">Estimated total</span>
+              <div className="p-4 rounded-xl bg-red-950/25 border border-red-500/30 flex items-center justify-between">
+                <div className="text-xs text-gray-700">
+                  <span className="block text-gray-600 uppercase font-semibold text-[10px]">Estimated total</span>
                   {nights > 0 ? (
                     <span>
                       {nights} night{nights > 1 ? 's' : ''} × {kwacha(room.pricePerNight)}
@@ -202,7 +202,7 @@ export default function BookingModal({ isOpen, onClose, selectedRoomId }: Bookin
                     <span>Select dates to see your estimate</span>
                   )}
                 </div>
-                <span className="text-2xl font-bold text-amber-300 font-mono">
+                <span className="text-2xl font-bold text-red-300 font-mono">
                   {nights > 0 ? kwacha(estimated) : '—'}
                 </span>
               </div>
@@ -215,9 +215,9 @@ export default function BookingModal({ isOpen, onClose, selectedRoomId }: Bookin
                 <span>Request Booking</span>
               </button>
 
-              <p className="text-[11px] text-slate-500 text-center">
+              <p className="text-[11px] text-gray-500 text-center">
                 Sample rates in Zambian Kwacha. Prefer to call?{' '}
-                <a href={HOTEL_INFO.phoneHref} className="text-amber-300 hover:underline inline-flex items-center gap-1">
+                <a href={HOTEL_INFO.phoneHref} className="text-red-300 hover:underline inline-flex items-center gap-1">
                   <Phone className="w-3 h-3" /> {HOTEL_INFO.phone}
                 </a>
               </p>

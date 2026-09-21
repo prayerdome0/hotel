@@ -12,7 +12,7 @@ import {
   UtensilsCrossed,
   Presentation,
 } from 'lucide-react';
-import HotelImage from '@/components/HotelImage';
+import LodgeImage from '@/components/LodgeImage';
 import { HERO_SLIDES, HOTEL_INFO } from '@/data/hotelData';
 
 interface AutoplayHeroProps {
@@ -65,7 +65,7 @@ export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
   };
 
   return (
-    <div className="relative w-full h-[92svh] min-h-[560px] max-h-[940px] overflow-hidden bg-slate-950 select-none">
+    <div className="relative w-full h-[92svh] min-h-[560px] max-h-[940px] overflow-hidden bg-white select-none">
       {/* Background images */}
       {HERO_SLIDES.map((slide, idx) => {
         const isActive = idx === currentIndex;
@@ -76,7 +76,7 @@ export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
               isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
             }`}
           >
-            <HotelImage
+            <LodgeImage
               src={slide.image}
               alt={slide.title}
               fill
@@ -84,8 +84,8 @@ export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
               sizes="100vw"
               className="object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/50" />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/35 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/45 to-white/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/35 to-transparent" />
           </div>
         );
       })}
@@ -93,8 +93,8 @@ export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
       {/* Content */}
       <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-28 sm:pb-24">
         <div key={currentSlide.id} className="max-w-3xl space-y-4 animate-fadeIn">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-amber-400/40 backdrop-blur-md text-amber-300 text-[11px] sm:text-xs font-bold tracking-widest uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse-glow" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gray-50/80 border border-red-400/40 backdrop-blur-md text-red-300 text-[11px] sm:text-xs font-bold tracking-widest uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse-glow" />
             <span>{currentSlide.badge}</span>
           </div>
 
@@ -102,40 +102,40 @@ export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
             {currentSlide.title}
           </h1>
 
-          <p className="text-sm sm:text-lg text-slate-200 font-light max-w-2xl leading-relaxed">
+          <p className="text-sm sm:text-lg text-gray-800 font-light max-w-2xl leading-relaxed">
             {currentSlide.subtitle}
           </p>
 
-          <div className="pt-1 flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-slate-200">
-            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1.5 rounded-lg border border-slate-700/60">
-              <Wifi className="w-3.5 h-3.5 text-amber-400" /> Free Wi-Fi
+          <div className="pt-1 flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-gray-800">
+            <span className="flex items-center gap-1.5 bg-gray-50/70 px-3 py-1.5 rounded-lg border border-gray-300/60">
+              <Wifi className="w-3.5 h-3.5 text-red-400" /> Free Wi-Fi
             </span>
-            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1.5 rounded-lg border border-slate-700/60">
-              <UtensilsCrossed className="w-3.5 h-3.5 text-amber-400" /> Restaurant & Room Service
+            <span className="flex items-center gap-1.5 bg-gray-50/70 px-3 py-1.5 rounded-lg border border-gray-300/60">
+              <UtensilsCrossed className="w-3.5 h-3.5 text-red-400" /> Restaurant & Room Service
             </span>
-            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1.5 rounded-lg border border-slate-700/60">
-              <Presentation className="w-3.5 h-3.5 text-amber-400" /> 300-Seat Conference Hall
+            <span className="flex items-center gap-1.5 bg-gray-50/70 px-3 py-1.5 rounded-lg border border-gray-300/60">
+              <Presentation className="w-3.5 h-3.5 text-red-400" /> 300-Seat Conference Hall
             </span>
           </div>
 
           <div className="pt-3 flex flex-col sm:flex-row sm:items-center gap-3">
             <button
               onClick={onBook}
-              className="px-7 py-3.5 rounded-xl font-bold text-sm sm:text-base gold-btn flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20"
+              className="px-7 py-3.5 rounded-xl font-bold text-sm sm:text-base gold-btn flex items-center justify-center gap-2 shadow-xl shadow-red-500/20"
             >
               <CalendarCheck className="w-5 h-5" />
               <span>Book a Room</span>
             </button>
             <button
               onClick={scrollToExplore}
-              className="px-7 py-3.5 rounded-xl font-semibold text-sm sm:text-base gold-btn-outline backdrop-blur-md bg-slate-900/40 flex items-center justify-center gap-2"
+              className="px-7 py-3.5 rounded-xl font-semibold text-sm sm:text-base gold-btn-outline backdrop-blur-md bg-gray-50/40 flex items-center justify-center gap-2"
             >
               <Compass className="w-4 h-4" />
-              <span>Explore Hotel</span>
+              <span>Explore Lodge</span>
             </button>
           </div>
 
-          <p className="text-[11px] sm:text-xs text-slate-400">
+          <p className="text-[11px] sm:text-xs text-gray-600">
             {HOTEL_INFO.location} • {HOTEL_INFO.reception} • Check-in {HOTEL_INFO.checkIn}
           </p>
         </div>
@@ -150,12 +150,12 @@ export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
               <button
                 key={slide.id}
                 onClick={() => goToSlide(idx)}
-                className="relative flex-1 sm:flex-none sm:w-16 md:w-20 h-1.5 rounded-full bg-slate-700/80 overflow-hidden cursor-pointer transition hover:bg-slate-600"
+                className="relative flex-1 sm:flex-none sm:w-16 md:w-20 h-1.5 rounded-full bg-gray-300/80 overflow-hidden cursor-pointer transition hover:bg-gray-500"
                 aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
               >
                 {isActive && (
                   <div
-                    className="h-full bg-amber-400 rounded-full"
+                    className="h-full bg-red-400 rounded-full"
                     style={{ width: `${progress}%` }}
                   />
                 )}
@@ -164,27 +164,27 @@ export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
           })}
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-950/80 backdrop-blur-md border border-amber-500/30 rounded-full px-2.5 py-1.5 shadow-lg">
+        <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md border border-red-500/30 rounded-full px-2.5 py-1.5 shadow-lg">
           <button
             onClick={prevSlide}
-            className="p-1.5 rounded-full hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 transition"
+            className="p-1.5 rounded-full hover:bg-red-500/20 text-gray-700 hover:text-red-300 transition"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="p-1.5 rounded-full hover:bg-amber-500/20 text-amber-400 hover:text-amber-300 transition"
+            className="p-1.5 rounded-full hover:bg-red-500/20 text-red-400 hover:text-red-300 transition"
             aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           </button>
-          <span className="text-xs font-mono text-slate-400 px-1">
+          <span className="text-xs font-mono text-gray-600 px-1">
             0{currentIndex + 1} / 0{HERO_SLIDES.length}
           </span>
           <button
             onClick={nextSlide}
-            className="p-1.5 rounded-full hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 transition"
+            className="p-1.5 rounded-full hover:bg-red-500/20 text-gray-700 hover:text-red-300 transition"
             aria-label="Next slide"
           >
             <ChevronRight className="w-4 h-4" />

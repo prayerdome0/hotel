@@ -6,7 +6,7 @@ import { CheckCircle2, Users, ArrowRight } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import SectionHeading from '@/components/SectionHeading';
 import DeveloperCTA from '@/components/DeveloperCTA';
-import HotelImage from '@/components/HotelImage';
+import LodgeImage from '@/components/LodgeImage';
 import { DINING_HALL_INFO, HOTEL_INFO } from '@/data/hotelData';
 
 export default function DiningPage() {
@@ -20,11 +20,11 @@ export default function DiningPage() {
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div className="relative h-72 sm:h-[420px] rounded-3xl overflow-hidden border border-slate-800 group">
-          <HotelImage src={DINING_HALL_INFO.image} alt={DINING_HALL_INFO.name} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-xs text-slate-200">
-            <Users className="w-4 h-4 text-amber-400 shrink-0" />
+        <div className="relative h-72 sm:h-[420px] rounded-3xl overflow-hidden border border-gray-200 group">
+          <LodgeImage src={DINING_HALL_INFO.image} alt={DINING_HALL_INFO.name} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent" />
+          <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-xs text-gray-800">
+            <Users className="w-4 h-4 text-red-400 shrink-0" />
             <span>{DINING_HALL_INFO.capacity}</span>
           </div>
         </div>
@@ -36,10 +36,10 @@ export default function DiningPage() {
           />
           <div>
             <h3 className="text-sm font-bold text-white mb-2">Ideal for</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
               {DINING_HALL_INFO.uses.map((x) => (
                 <div key={x} className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                   <span>{x}</span>
                 </div>
               ))}
@@ -47,7 +47,7 @@ export default function DiningPage() {
           </div>
           <div>
             <h3 className="text-sm font-bold text-white mb-2">What we provide</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
               {DINING_HALL_INFO.points.map((x) => (
                 <div key={x} className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
@@ -71,11 +71,11 @@ export default function DiningPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="glass-card rounded-2xl p-6 sm:p-8 text-center space-y-3">
           <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">Planning a wedding, dinner or celebration?</h2>
-          <p className="text-sm text-slate-400 max-w-2xl mx-auto">
+          <p className="text-sm text-gray-600 max-w-2xl mx-auto">
             Tell us your date, guest numbers and menu preferences and we will help you plan the setup, catering and programme.
-            Call us on <a href={HOTEL_INFO.phoneHref} className="text-amber-300 font-semibold hover:underline">{HOTEL_INFO.phone}</a>.
+            Call us on <a href={HOTEL_INFO.phoneHref} className="text-red-300 font-semibold hover:underline">{HOTEL_INFO.phone}</a>.
           </p>
-          <Link href="/events" className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-300 hover:text-amber-200">
+          <Link href="/events" className="inline-flex items-center gap-1.5 text-sm font-semibold text-red-300 hover:text-red-200">
             <span>See all event venues & packages</span>
             <ArrowRight className="w-4 h-4" />
           </Link>

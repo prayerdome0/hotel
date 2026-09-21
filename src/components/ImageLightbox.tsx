@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import HotelImage from '@/components/HotelImage';
+import LodgeImage from '@/components/LodgeImage';
 import {
   X,
   ChevronLeft,
@@ -88,12 +88,12 @@ export default function ImageLightbox({
       role="dialog"
       aria-modal="true"
       aria-label="Image gallery lightbox"
-      className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col justify-between select-none animate-fadeIn"
+      className="fixed inset-0 z-50 bg-white/95 backdrop-blur-xl flex flex-col justify-between select-none animate-fadeIn"
     >
       {/* Top Bar */}
-      <div className="flex items-center justify-between p-4 sm:px-8 border-b border-slate-800 bg-slate-950/80">
+      <div className="flex items-center justify-between p-4 sm:px-8 border-b border-gray-200 bg-white/80">
         <div className="flex items-center gap-3">
-          <span className="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-semibold uppercase tracking-wider">
+          <span className="px-2.5 py-1 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-xs font-semibold uppercase tracking-wider">
             {currentPhoto.category}
           </span>
           <h3 className="text-sm sm:text-base font-semibold text-white truncate max-w-md">
@@ -107,8 +107,8 @@ export default function ImageLightbox({
             onClick={() => setIsPlaying(!isPlaying)}
             className={`p-2 rounded-lg text-xs font-medium flex items-center gap-1.5 transition ${
               isPlaying
-                ? 'bg-amber-500 text-slate-950 font-bold'
-                : 'bg-slate-900 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20'
+                ? 'bg-red-500 text-white font-bold'
+                : 'bg-gray-50 border border-red-500/30 text-red-300 hover:bg-red-500/20'
             }`}
             title="Auto-play slideshow"
           >
@@ -118,19 +118,19 @@ export default function ImageLightbox({
 
           <button
             onClick={() => setIsZoomed(!isZoomed)}
-            className="p-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white transition"
+            className="p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-700 hover:text-white transition"
             title={isZoomed ? 'Zoom Out' : 'Zoom In'}
           >
             {isZoomed ? <ZoomOut className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
           </button>
 
-          <span className="text-xs font-mono text-slate-400 px-2 hidden sm:inline">
+          <span className="text-xs font-mono text-gray-600 px-2 hidden sm:inline">
             {currentIndex + 1} / {photos.length}
           </span>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:bg-red-950 hover:border-red-500 transition"
+            className="p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-700 hover:text-white hover:bg-red-950 hover:border-red-500 transition"
             aria-label="Close Lightbox"
           >
             <X className="w-5 h-5" />
@@ -143,7 +143,7 @@ export default function ImageLightbox({
         {/* Left Nav Arrow */}
         <button
           onClick={handlePrev}
-          className="absolute left-4 sm:left-8 z-20 p-3 rounded-full bg-slate-900/80 border border-amber-500/30 text-white hover:bg-amber-500 hover:text-slate-950 transition shadow-2xl backdrop-blur-md"
+          className="absolute left-4 sm:left-8 z-20 p-3 rounded-full bg-gray-50/80 border border-red-500/30 text-white hover:bg-red-500 hover:text-white transition shadow-2xl backdrop-blur-md"
           aria-label="Previous Image"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -155,7 +155,7 @@ export default function ImageLightbox({
             isZoomed ? 'scale-125 cursor-grab' : 'scale-100'
           }`}
         >
-          <HotelImage
+          <LodgeImage
             src={currentPhoto.url}
             alt={currentPhoto.title}
             fill
@@ -168,7 +168,7 @@ export default function ImageLightbox({
         {/* Right Nav Arrow */}
         <button
           onClick={handleNext}
-          className="absolute right-4 sm:right-8 z-20 p-3 rounded-full bg-slate-900/80 border border-amber-500/30 text-white hover:bg-amber-500 hover:text-slate-950 transition shadow-2xl backdrop-blur-md"
+          className="absolute right-4 sm:right-8 z-20 p-3 rounded-full bg-gray-50/80 border border-red-500/30 text-white hover:bg-red-500 hover:text-white transition shadow-2xl backdrop-blur-md"
           aria-label="Next Image"
         >
           <ChevronRight className="w-6 h-6" />
@@ -176,9 +176,9 @@ export default function ImageLightbox({
       </div>
 
       {/* Bottom Thumbnail Strip & Caption */}
-      <div className="p-4 bg-slate-950/90 border-t border-slate-800 space-y-3">
+      <div className="p-4 bg-white/90 border-t border-gray-200 space-y-3">
         {currentPhoto.caption && (
-          <p className="text-center text-xs sm:text-sm text-slate-300 max-w-3xl mx-auto italic">
+          <p className="text-center text-xs sm:text-sm text-gray-700 max-w-3xl mx-auto italic">
             &ldquo;{currentPhoto.caption}&rdquo;
           </p>
         )}
@@ -194,11 +194,11 @@ export default function ImageLightbox({
               }}
               className={`relative shrink-0 w-14 h-10 sm:w-16 sm:h-12 rounded-md overflow-hidden transition-all ${
                 idx === currentIndex
-                  ? 'ring-2 ring-amber-400 scale-105 opacity-100'
+                  ? 'ring-2 ring-red-400 scale-105 opacity-100'
                   : 'opacity-40 hover:opacity-80'
               }`}
             >
-              <HotelImage
+              <LodgeImage
                 src={photo.url}
                 alt={photo.title}
                 fill

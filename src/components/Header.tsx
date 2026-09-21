@@ -48,24 +48,24 @@ export default function Header() {
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-slate-950/95 backdrop-blur-md border-b border-amber-500/20 shadow-2xl py-3'
-            : 'bg-slate-950/70 backdrop-blur-sm border-b border-transparent py-4'
+            ? 'bg-white/95 backdrop-blur-md border-b border-red-500/20 shadow-2xl py-3'
+            : 'bg-white/70 backdrop-blur-sm border-b border-transparent py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
           {/* Brand */}
           <Link href="/" className="group flex items-center gap-3 shrink-0" onClick={closeMenu}>
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-600 to-amber-900 p-[1px] shadow-lg shadow-amber-500/20">
-              <div className="w-full h-full bg-slate-950 rounded-xl flex items-center justify-center">
-                <span className="font-serif-luxury font-bold text-lg sm:text-xl text-amber-300">ZP</span>
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-red-400 via-red-600 to-red-900 p-[1px] shadow-lg shadow-red-500/20">
+              <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
+                <span className="font-serif-luxury font-bold text-lg sm:text-xl text-red-300">SDL</span>
               </div>
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="text-lg sm:text-xl font-bold text-slate-100 group-hover:text-amber-300 transition font-serif-luxury">
-                Zambezi Palms
+              <span className="text-lg sm:text-xl font-bold text-black group-hover:text-red-300 transition font-serif-luxury">
+                SDL
               </span>
-              <span className="text-[10px] sm:text-[11px] text-slate-400 tracking-widest uppercase">
-                Hotel & Conference Centre
+              <span className="text-[10px] sm:text-[11px] text-gray-600 tracking-widest uppercase">
+                Lodge & Events
               </span>
             </div>
           </Link>
@@ -80,8 +80,8 @@ export default function Header() {
                   href={link.href}
                   className={`relative px-2.5 xl:px-3 py-2 text-[13px] xl:text-sm font-medium rounded-md transition ${
                     isActive
-                      ? 'text-amber-300 bg-amber-500/10 border border-amber-500/30'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                      ? 'text-red-300 bg-red-500/10 border border-red-500/30'
+                      : 'text-gray-700 hover:text-white hover:bg-gray-200/50'
                   }`}
                 >
                   {link.name}
@@ -113,7 +113,7 @@ export default function Header() {
             onClick={() => setMobileMenuOpen((v) => !v)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileMenuOpen}
-            className="lg:hidden p-2.5 rounded-lg bg-slate-900 border border-amber-500/30 text-slate-100 hover:text-amber-300 transition shrink-0"
+            className="lg:hidden p-2.5 rounded-lg bg-gray-50 border border-red-500/30 text-black hover:text-red-300 transition shrink-0"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -128,7 +128,7 @@ export default function Header() {
         aria-hidden={!mobileMenuOpen}
       >
         {/* Backdrop — tap outside to close */}
-        <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm" onClick={closeMenu} />
+        <div className="absolute inset-0 bg-white/70 backdrop-blur-sm" onClick={closeMenu} />
 
         {/* Drawer */}
         <div
@@ -136,25 +136,25 @@ export default function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"
-          className={`absolute top-0 right-0 h-full w-[86%] max-w-sm bg-slate-950 border-l border-amber-500/25 shadow-2xl flex flex-col transition-transform duration-300 ease-out ${
+          className={`absolute top-0 right-0 h-full w-[86%] max-w-sm bg-white border-l border-red-500/25 shadow-2xl flex flex-col transition-transform duration-300 ease-out ${
             mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
           {/* Drawer header */}
-          <div className="flex items-center justify-between p-4 border-b border-slate-800">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center text-slate-950 font-serif-luxury font-bold">
-                ZP
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-red-400 to-red-700 flex items-center justify-center text-white font-serif-luxury font-bold">
+                SDL
               </div>
               <div className="leading-tight">
-                <p className="text-sm font-bold text-white font-serif-luxury">Zambezi Palms</p>
-                <p className="text-[10px] text-slate-400 uppercase tracking-widest">Hotel & Conference</p>
+                <p className="text-sm font-bold text-white font-serif-luxury">SDL</p>
+                <p className="text-[10px] text-gray-600 uppercase tracking-widest">Lodge & Conference</p>
               </div>
             </div>
             <button
               onClick={closeMenu}
               aria-label="Close menu"
-              className="p-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white"
+              className="p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-700 hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
@@ -171,19 +171,19 @@ export default function Header() {
                   onClick={closeMenu}
                   className={`flex items-center justify-between px-4 py-3 rounded-xl text-[15px] font-medium transition ${
                     isActive
-                      ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40'
-                      : 'text-slate-200 hover:bg-slate-900 border border-transparent'
+                      ? 'bg-red-500/15 text-red-300 border border-red-500/40'
+                      : 'text-gray-800 hover:bg-gray-50 border border-transparent'
                   }`}
                 >
                   <span>{link.name}</span>
-                  <ChevronRight className="w-4 h-4 text-slate-500" />
+                  <ChevronRight className="w-4 h-4 text-gray-500" />
                 </Link>
               );
             })}
           </nav>
 
           {/* Drawer footer */}
-          <div className="p-4 border-t border-slate-800 space-y-3 bg-slate-950">
+          <div className="p-4 border-t border-gray-200 space-y-3 bg-white">
             <Link
               href="/rooms"
               onClick={closeMenu}
@@ -192,17 +192,17 @@ export default function Header() {
               <CalendarCheck className="w-4 h-4" />
               <span>Book a Room</span>
             </Link>
-            <div className="grid grid-cols-1 gap-1.5 text-xs text-slate-400">
-              <a href={HOTEL_INFO.phoneHref} className="flex items-center gap-2 hover:text-amber-300">
-                <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <div className="grid grid-cols-1 gap-1.5 text-xs text-gray-600">
+              <a href={HOTEL_INFO.phoneHref} className="flex items-center gap-2 hover:text-red-300">
+                <Phone className="w-3.5 h-3.5 text-red-400 shrink-0" />
                 <span>{HOTEL_INFO.phone}</span>
               </a>
-              <a href={`mailto:${HOTEL_INFO.email}`} className="flex items-center gap-2 hover:text-amber-300">
-                <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <a href={`mailto:${HOTEL_INFO.email}`} className="flex items-center gap-2 hover:text-red-300">
+                <Mail className="w-3.5 h-3.5 text-red-400 shrink-0" />
                 <span>{HOTEL_INFO.email}</span>
               </a>
               <span className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-red-400 shrink-0" />
                 <span>{HOTEL_INFO.location}</span>
               </span>
             </div>

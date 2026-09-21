@@ -7,23 +7,23 @@ const u = (id: string) => `https://images.unsplash.com/photo-${id}?q=80&w=1600&a
 // ---------------------------------------------------------------------------
 
 export const HOTEL_INFO = {
-  name: 'Zambezi Palms',
-  fullName: 'Zambezi Palms Hotel & Conference Centre',
-  tagline: 'Comfortable stays, memorable events — in the heart of Lusaka',
-  location: 'Lusaka, Zambia',
-  address: 'Plot 1234, Independence Avenue, Lusaka, Zambia',
+  name: 'SDL',
+  fullName: 'SDL Lodge & Events',
+  tagline: 'Comfortable stays, memorable events — in the heart of XXXX XXXX',
+  location: 'XXXX XXXX',
+  address: 'Plot 1234, Independence Avenue, XXXX XXXX',
   phone: '+260 211 234 567',
   phoneHref: 'tel:+260211234567',
   mobile: '+260 977 123 456',
   mobileHref: 'tel:+260977123456',
-  email: 'stay@zambezipalms.com',
+  email: 'XXXX XXXX',
   checkIn: '14:00',
   checkOut: '11:00',
   reception: '24-hour front desk',
 };
 
 export const DEVELOPER_INFO = {
-  heading: 'Looking for a Hotel Website Like This?',
+  heading: 'Looking for a Lodge Website Like This?',
   text: 'Get a modern, professional website designed for your hotel, lodge, guest house, conference centre or hospitality business.',
   buttonLabel: 'Contact the Developer',
   phones: [
@@ -43,7 +43,7 @@ export const DEVELOPER_INFO = {
 export const NAV_LINKS = [
   { name: 'Home', href: '/' },
   { name: 'Rooms', href: '/rooms' },
-  { name: 'Conference & Events', href: '/events' },
+  { name: 'Conference & Events', href: '/conference' },
   { name: 'Restaurant', href: '/restaurant' },
   { name: 'Dining', href: '/dining' },
   { name: 'Amenities', href: '/amenities' },
@@ -53,12 +53,12 @@ export const NAV_LINKS = [
 ];
 
 export const WEBSITE_SERVICES = [
-  'Hotel Website',
+  'Lodge Website',
   'Lodge Website',
   'Guest House Website',
   'Conference Website',
   'Restaurant Website',
-  'Hotel Booking Website',
+  'Lodge Booking Website',
   'Custom Website',
 ];
 
@@ -78,9 +78,9 @@ export const HERO_SLIDES = [
   {
     id: 1,
     image: '/images/exterior-day.jpg',
-    badge: 'WELCOME TO ZAMBEZI PALMS',
-    title: 'Zambezi Palms Hotel & Conference Centre',
-    subtitle: 'A premium modern hotel in Lusaka offering comfortable rooms, conference facilities, a restaurant and beautiful event spaces.',
+    badge: 'WELCOME TO SDL',
+    title: 'SDL Lodge & Events',
+    subtitle: 'A premium modern hotel in XXXX XXXX offering comfortable rooms, conference facilities, a restaurant and beautiful event spaces.',
   },
   {
     id: 2,
@@ -245,7 +245,7 @@ export const ROOMS: Room[] = [
     heroImage: '/images/suite.jpg',
     gallery: ['/images/suite.jpg', u('1590490360182-c33d57733427'), BATHROOM_IMG],
     description:
-      'The best of Zambezi Palms: a king bedroom, a separate elegant lounge with dining table for four, two modern bathrooms and premium finishes throughout. Ideal for executives, wedding couples, VIP guests and long stays.',
+      'The best of SDL: a king bedroom, a separate elegant lounge with dining table for four, two modern bathrooms and premium finishes throughout. Ideal for executives, wedding couples, VIP guests and long stays.',
     features: [
       'King bedroom with premium bedding',
       'Separate lounge with sofa and armchairs',
@@ -502,7 +502,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 // ---------------------------------------------------------------------------
 
 export const DINING_HALL_INFO = {
-  name: 'Zambezi Banquet & Dining Hall',
+  name: 'SDL Banquet & Dining Hall',
   tagline: 'A spacious hall for banquets, weddings and celebrations',
   image: u('1519225421980-715cb0215aed'),
   capacity: 'Up to 200 guests (banquet) • 300 guests (cocktail)',

@@ -4,23 +4,23 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Zambezi Palms Hotel & Conference Centre | Lusaka, Zambia",
+  title: "SDL Lodge & Events | XXXX XXXX",
   description:
-    "Zambezi Palms Hotel & Conference Centre in Lusaka, Zambia — comfortable rooms & suites, conference halls, restaurant, dining hall, weddings and events. Book your stay or event with us.",
+    "SDL Lodge & Events in XXXX XXXX — comfortable rooms & suites, conference halls, restaurant, dining hall, weddings and events. Book your stay or event with us.",
   keywords: [
-    "Hotel Lusaka",
-    "Zambezi Palms Hotel",
+    "Lodge XXXX XXXX",
+    "SDL Lodge",
     "Conference centre Zambia",
-    "Hotel rooms Lusaka",
-    "Wedding venue Lusaka",
-    "Restaurant Lusaka",
+    "Lodge rooms XXXX XXXX",
+    "Wedding venue XXXX XXXX",
+    "Restaurant XXXX XXXX",
     "Events hall Zambia",
   ],
   openGraph: {
-    title: "Zambezi Palms Hotel & Conference Centre",
+    title: "SDL Lodge & Events",
     description:
-      "Comfortable rooms, conference facilities, restaurant and event spaces in Lusaka, Zambia.",
-    siteName: "Zambezi Palms Hotel",
+      "Comfortable rooms, conference facilities, restaurant and event spaces in XXXX XXXX.",
+    siteName: "SDL Lodge",
     type: "website",
     locale: "en_ZM",
   },
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-950">
+      <body className="bg-white text-black min-h-screen flex flex-col antialiased selection:bg-red-400 selection:text-white">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
