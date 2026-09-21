@@ -1,53 +1,52 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import {
   ChevronLeft,
   ChevronRight,
   Pause,
   Play,
-  Sparkles,
-  Building2,
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle,
+  CalendarCheck,
+  Compass,
+  Wifi,
+  UtensilsCrossed,
+  Presentation,
 } from 'lucide-react';
+import HotelImage from '@/components/HotelImage';
 import { HERO_SLIDES, HOTEL_INFO } from '@/data/hotelData';
 
-export default function AutoplayHero() {
+interface AutoplayHeroProps {
+  onBook: () => void;
+}
+
+const now = () => Date.now();
+const SLIDE_DURATION = 6000;
+
+export default function AutoplayHero({ onBook }: AutoplayHeroProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
-  const slideDuration = 6000; // 6 seconds per slide
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const startTimeRef = useRef<number>(Date.now());
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeRef = useRef<number>(0);
 
   const currentSlide = HERO_SLIDES[currentIndex];
 
-  // Autoplay loop with smooth progress tracking
   useEffect(() => {
     if (!isPlaying) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
-
-    startTimeRef.current = Date.now();
-    const intervalTime = 50; // Update progress every 50ms
-
+    startTimeRef.current = now();
     timerRef.current = setInterval(() => {
-      const elapsed = Date.now() - startTimeRef.current;
-      const pct = Math.min((elapsed / slideDuration) * 100, 100);
+      const elapsed = now() - startTimeRef.current;
+      const pct = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
       setProgress(pct);
-
-      if (elapsed >= slideDuration) {
+      if (elapsed >= SLIDE_DURATION) {
         setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-        startTimeRef.current = Date.now();
+        startTimeRef.current = now();
         setProgress(0);
       }
-    }, intervalTime);
-
+    }, 50);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
@@ -56,39 +55,28 @@ export default function AutoplayHero() {
   const goToSlide = (idx: number) => {
     setCurrentIndex(idx);
     setProgress(0);
-    startTimeRef.current = Date.now();
+    startTimeRef.current = now();
   };
+  const prevSlide = () => goToSlide((currentIndex - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+  const nextSlide = () => goToSlide((currentIndex + 1) % HERO_SLIDES.length);
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? HERO_SLIDES.length - 1 : prev - 1));
-    setProgress(0);
-    startTimeRef.current = Date.now();
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-    setProgress(0);
-    startTimeRef.current = Date.now();
-  };
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
+  const scrollToExplore = () => {
+    document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="relative w-full h-[88vh] min-h-[600px] max-h-[920px] overflow-hidden bg-slate-950 select-none">
-      {/* Background Images with crossfade */}
+    <div className="relative w-full h-[92svh] min-h-[560px] max-h-[940px] overflow-hidden bg-slate-950 select-none">
+      {/* Background images */}
       {HERO_SLIDES.map((slide, idx) => {
         const isActive = idx === currentIndex;
         return (
           <div
             key={slide.id}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              isActive ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-105 pointer-events-none'
+              isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
             }`}
-            style={{ transition: 'opacity 1s ease-in-out, transform 8s linear' }}
           >
-            <Image
+            <HotelImage
               src={slide.image}
               alt={slide.title}
               fill
@@ -96,124 +84,108 @@ export default function AutoplayHero() {
               sizes="100vw"
               className="object-cover object-center"
             />
-            {/* Gradient Overlays for Luxury Contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/60" />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/35 to-transparent" />
           </div>
         );
       })}
 
-      {/* Hero Content Overlay */}
-      <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-24 sm:pb-28">
-        <div className="max-w-3xl space-y-4">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-amber-400/40 backdrop-blur-md text-amber-300 text-xs sm:text-sm font-semibold tracking-wider uppercase">
-            <Building2 className="w-4 h-4 text-amber-400" />
+      {/* Content */}
+      <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-28 sm:pb-24">
+        <div key={currentSlide.id} className="max-w-3xl space-y-4 animate-fadeIn">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-amber-400/40 backdrop-blur-md text-amber-300 text-[11px] sm:text-xs font-bold tracking-widest uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse-glow" />
             <span>{currentSlide.badge}</span>
-            <span className="text-amber-500">•</span>
-            <span className="text-slate-300 font-normal">By {HOTEL_INFO.owner}</span>
           </div>
 
-          {/* Main Title */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-serif-luxury text-white tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-serif-luxury text-white tracking-tight leading-[1.08]">
             {currentSlide.title}
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-light max-w-2xl leading-relaxed">
+          <p className="text-sm sm:text-lg text-slate-200 font-light max-w-2xl leading-relaxed">
             {currentSlide.subtitle}
           </p>
 
-          {/* Key Quick Tags */}
-          <div className="pt-2 flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-slate-200">
-            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1 rounded-md border border-slate-700/60">
-              <CheckCircle className="w-3.5 h-3.5 text-amber-400" />
-              240 Keys & 28 Oceanfront Villas
+          <div className="pt-1 flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-slate-200">
+            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1.5 rounded-lg border border-slate-700/60">
+              <Wifi className="w-3.5 h-3.5 text-amber-400" /> Free Wi-Fi
             </span>
-            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1 rounded-md border border-slate-700/60">
-              <CheckCircle className="w-3.5 h-3.5 text-amber-400" />
-              $16.4M Audited Annual EBITDA
+            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1.5 rounded-lg border border-slate-700/60">
+              <UtensilsCrossed className="w-3.5 h-3.5 text-amber-400" /> Restaurant & Room Service
             </span>
-            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1 rounded-md border border-slate-700/60">
-              <CheckCircle className="w-3.5 h-3.5 text-amber-400" />
-              100% Freehold Title
+            <span className="flex items-center gap-1.5 bg-slate-900/70 px-3 py-1.5 rounded-lg border border-slate-700/60">
+              <Presentation className="w-3.5 h-3.5 text-amber-400" /> 300-Seat Conference Hall
             </span>
           </div>
 
-          {/* CTAs */}
-          <div className="pt-4 flex flex-wrap items-center gap-4">
-            <Link
-              href={currentSlide.ctaPrimary.href}
-              className="px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base gold-btn flex items-center gap-2 shadow-xl shadow-amber-500/20"
+          <div className="pt-3 flex flex-col sm:flex-row sm:items-center gap-3">
+            <button
+              onClick={onBook}
+              className="px-7 py-3.5 rounded-xl font-bold text-sm sm:text-base gold-btn flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20"
             >
-              <span>{currentSlide.ctaPrimary.label}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-
-            <Link
-              href={currentSlide.ctaSecondary.href}
-              className="px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base gold-btn-outline backdrop-blur-md bg-slate-900/40"
+              <CalendarCheck className="w-5 h-5" />
+              <span>Book a Room</span>
+            </button>
+            <button
+              onClick={scrollToExplore}
+              className="px-7 py-3.5 rounded-xl font-semibold text-sm sm:text-base gold-btn-outline backdrop-blur-md bg-slate-900/40 flex items-center justify-center gap-2"
             >
-              <span>{currentSlide.ctaSecondary.label}</span>
-            </Link>
+              <Compass className="w-4 h-4" />
+              <span>Explore Hotel</span>
+            </button>
           </div>
+
+          <p className="text-[11px] sm:text-xs text-slate-400">
+            {HOTEL_INFO.location} • {HOTEL_INFO.reception} • Check-in {HOTEL_INFO.checkIn}
+          </p>
         </div>
       </div>
 
-      {/* Autoplay Controls & Slide Selector Strip */}
-      <div className="absolute bottom-6 left-0 right-0 z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Slide Indicators with Active Progress Bar */}
-        <div className="flex items-center gap-3 w-full sm:w-auto">
+      {/* Controls */}
+      <div className="absolute bottom-5 left-0 right-0 z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5 w-full sm:w-auto">
           {HERO_SLIDES.map((slide, idx) => {
             const isActive = idx === currentIndex;
             return (
               <button
                 key={slide.id}
                 onClick={() => goToSlide(idx)}
-                className="relative flex-1 sm:w-20 md:w-24 h-1.5 rounded-full bg-slate-800/80 overflow-hidden cursor-pointer transition hover:bg-slate-700"
-                aria-label={`Go to slide ${idx + 1}`}
+                className="relative flex-1 sm:flex-none sm:w-16 md:w-20 h-1.5 rounded-full bg-slate-700/80 overflow-hidden cursor-pointer transition hover:bg-slate-600"
+                aria-label={`Go to slide ${idx + 1}: ${slide.title}`}
               >
                 {isActive && (
                   <div
-                    className="h-full bg-amber-400 transition-all duration-75 ease-linear rounded-full"
+                    className="h-full bg-amber-400 rounded-full"
                     style={{ width: `${progress}%` }}
                   />
-                )}
-                {!isActive && idx < currentIndex && (
-                  <div className="h-full w-full bg-amber-600/60 rounded-full" />
                 )}
               </button>
             );
           })}
         </div>
 
-        {/* Play / Pause & Prev / Next Arrows */}
-        <div className="flex items-center gap-3 bg-slate-950/80 backdrop-blur-md border border-amber-500/30 rounded-full px-3 py-1.5 shadow-lg">
+        <div className="flex items-center gap-2 bg-slate-950/80 backdrop-blur-md border border-amber-500/30 rounded-full px-2.5 py-1.5 shadow-lg">
           <button
             onClick={prevSlide}
             className="p-1.5 rounded-full hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 transition"
-            aria-label="Previous Slide"
+            aria-label="Previous slide"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-
           <button
-            onClick={togglePlay}
+            onClick={() => setIsPlaying(!isPlaying)}
             className="p-1.5 rounded-full hover:bg-amber-500/20 text-amber-400 hover:text-amber-300 transition"
-            aria-label={isPlaying ? 'Pause Auto-playing Slideshow' : 'Resume Auto-playing Slideshow'}
-            title={isPlaying ? 'Pause auto-play' : 'Play auto-play'}
+            aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           </button>
-
           <span className="text-xs font-mono text-slate-400 px-1">
             0{currentIndex + 1} / 0{HERO_SLIDES.length}
           </span>
-
           <button
             onClick={nextSlide}
             className="p-1.5 rounded-full hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 transition"
-            aria-label="Next Slide"
+            aria-label="Next slide"
           >
             <ChevronRight className="w-4 h-4" />
           </button>

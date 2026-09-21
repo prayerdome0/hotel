@@ -1,53 +1,43 @@
 'use client';
 
-import React, { useState } from 'react';
-import {
-  X,
-  Calendar,
-  Users,
-  CheckCircle2,
-  Clock,
-  Sparkles,
-  Plane,
-  Building2,
-  Ship,
-  Mail,
-  Phone,
-} from 'lucide-react';
-import { HOTEL_INFO, ROOMS_SUITES } from '@/data/hotelData';
+import React, { useState, useEffect } from 'react';
+import { X, CalendarCheck, Users, CheckCircle2, Info, Phone } from 'lucide-react';
+import { ROOMS, HOTEL_INFO } from '@/data/hotelData';
+import { kwacha, nightsBetween, todayISO } from '@/lib/format';
 
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedSuiteId?: string;
-  isPrivateInspection?: boolean;
+  selectedRoomId?: string;
 }
 
-export default function BookingModal({
-  isOpen,
-  onClose,
-  selectedSuiteId,
-  isPrivateInspection = false,
-}: BookingModalProps) {
-  const [suiteId, setSuiteId] = useState(selectedSuiteId || ROOMS_SUITES[0].id);
-  const [inquiryType, setInquiryType] = useState<'stay' | 'inspection'>(
-    isPrivateInspection ? 'inspection' : 'stay'
-  );
-  const [arrivalTransport, setArrivalTransport] = useState<'Commercial Flight' | 'Private Jet / Helipad' | 'Superyacht Berth'>('Commercial Flight');
+export default function BookingModal({ isOpen, onClose, selectedRoomId }: BookingModalProps) {
+  const [roomId, setRoomId] = useState(selectedRoomId || ROOMS[0].id);
+  const [checkIn, setCheckIn] = useState('');
+  const [checkOut, setCheckOut] = useState('');
+  const [guests, setGuests] = useState(2);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    checkIn: '',
-    checkOut: '',
-    guests: 2,
-    specialRequests: '',
-  });
+
+  useEffect(() => {
+    if (!isOpen) return;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
-  const currentSuite = ROOMS_SUITES.find((s) => s.id === suiteId) || ROOMS_SUITES[0];
+  const room = ROOMS.find((r) => r.id === roomId) || ROOMS[0];
+  const nights = nightsBetween(checkIn, checkOut);
+  const estimated = nights > 0 ? nights * room.pricePerNight : 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,238 +48,179 @@ export default function BookingModal({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Inquiry & Booking Modal"
+      aria-label="Book a room"
       className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
+      onClick={onClose}
     >
-      <div className="relative w-full max-w-xl bg-slate-900 border border-amber-500/30 rounded-2xl shadow-2xl p-6 sm:p-8 text-slate-200 my-8">
+      <div
+        className="relative w-full max-w-lg bg-slate-900 border border-amber-500/30 rounded-2xl shadow-2xl p-6 sm:p-8 my-8 animate-slideUp"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition"
+          className="absolute top-4 right-4 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition"
           aria-label="Close"
         >
           <X className="w-5 h-5" />
         </button>
 
         {submitted ? (
-          <div className="text-center py-8 space-y-4">
+          <div className="text-center py-6 space-y-4">
             <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="text-2xl font-serif-luxury font-bold text-white">
-              Inquiry Dispatched Successfully
-            </h3>
+            <h3 className="text-2xl font-serif-luxury font-bold text-white">Request Received</h3>
             <p className="text-sm text-slate-300 max-w-md mx-auto">
-              Thank you, <strong className="text-white">{formData.name}</strong>. Our executive concierge and Seedwel Investment advisory team will contact you within 4 hours.
+              Thank you, <strong className="text-white">{name}</strong>. Your booking request for the{' '}
+              <strong className="text-amber-300">{room.name}</strong>
+              {nights > 0 && (
+                <>
+                  {' '}({nights} night{nights > 1 ? 's' : ''}, est. <strong className="text-amber-300">{kwacha(estimated)}</strong>)
+                </>
+              )}{' '}
+              has been noted.
             </p>
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-left text-slate-400 space-y-1">
-              <p>Direct Concierge Line: <strong className="text-amber-300 font-mono">{HOTEL_INFO.contact.phone}</strong></p>
-              <p>Advisory Email: <strong className="text-amber-300 font-mono">{HOTEL_INFO.contact.email}</strong></p>
-              <p>Location: <strong className="text-slate-200">{HOTEL_INFO.contact.address}</strong></p>
+            <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 flex gap-2 text-left">
+              <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <span>
+                This is a <strong className="text-slate-200">demo booking interface</strong> for showcase purposes —
+                no real reservation has been made and no payment was taken. Connect a booking system or
+                WhatsApp line here to receive real bookings.
+              </span>
             </div>
-            <button
-              onClick={onClose}
-              className="px-6 py-2.5 rounded-lg text-xs sm:text-sm font-semibold gold-btn"
-            >
-              Close Window
+            <button onClick={onClose} className="px-6 py-2.5 rounded-lg text-sm font-bold gold-btn">
+              Done
             </button>
           </div>
         ) : (
-          <div>
-            <div className="mb-6 space-y-1">
+          <div className="space-y-5">
+            <div>
               <span className="text-[10px] px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase tracking-wider">
-                SWDL Direct Concierge
+                Demo booking
               </span>
-              <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">
-                {inquiryType === 'inspection'
-                  ? 'Private Investor Property Inspection'
-                  : 'Reserve Luxury Suite Accommodation'}
+              <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white mt-2 flex items-center gap-2">
+                <CalendarCheck className="w-6 h-6 text-amber-400" />
+                Book Your Stay
               </h2>
-              <p className="text-xs text-slate-400">
-                Managed by {HOTEL_INFO.owner}
+              <p className="text-xs text-slate-400 mt-1">
+                Check-in {HOTEL_INFO.checkIn} • Check-out {HOTEL_INFO.checkOut} • {HOTEL_INFO.reception}
               </p>
             </div>
 
-            {/* Inquiry Mode Tabs */}
-            <div className="grid grid-cols-2 gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800 mb-5">
-              <button
-                type="button"
-                onClick={() => setInquiryType('stay')}
-                className={`py-2 text-xs font-semibold rounded-lg transition ${
-                  inquiryType === 'stay'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                Guest Suite Reservation
-              </button>
-              <button
-                type="button"
-                onClick={() => setInquiryType('inspection')}
-                className={`py-2 text-xs font-semibold rounded-lg transition ${
-                  inquiryType === 'inspection'
-                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                VIP Investor Tour (For Sale)
-              </button>
-            </div>
-
             <form onSubmit={handleSubmit} className="space-y-4">
-              {inquiryType === 'stay' ? (
-                <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Select Suite / Villa
-                  </label>
-                  <select
-                    value={suiteId}
-                    onChange={(e) => setSuiteId(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
-                  >
-                    {ROOMS_SUITES.map((room) => (
-                      <option key={room.id} value={room.id}>
-                        {room.name} — ${room.pricePerNight.toLocaleString()}/night
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              ) : (
-                <div className="p-3 rounded-lg bg-amber-950/30 border border-amber-500/30 text-xs text-amber-200">
-                  <p className="font-semibold mb-1 flex items-center gap-1.5">
-                    <Building2 className="w-3.5 h-3.5" />
-                    Asset Inspection Protocol:
-                  </p>
-                  <p className="text-[11px] text-slate-300">
-                    Complimentary VIP helicopter transfer from nearby international hub or superyacht berth included for qualified buyers during diligence.
-                  </p>
-                </div>
-              )}
+              <div>
+                <label className="block text-xs font-medium text-slate-300 mb-1">Room type</label>
+                <select
+                  value={roomId}
+                  onChange={(e) => setRoomId(e.target.value)}
+                  className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                >
+                  {ROOMS.map((r) => (
+                    <option key={r.id} value={r.id}>
+                      {r.name} — {kwacha(r.pricePerNight)}/night (sample rate)
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Preferred Date
-                  </label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">Check-in</label>
                   <input
                     type="date"
                     required
-                    value={formData.checkIn}
-                    onChange={(e) => setFormData({ ...formData, checkIn: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
+                    min={todayISO()}
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    {inquiryType === 'stay' ? 'Departure Date' : 'Party Size'}
-                  </label>
-                  {inquiryType === 'stay' ? (
-                    <input
-                      type="date"
-                      required
-                      value={formData.checkOut}
-                      onChange={(e) => setFormData({ ...formData, checkOut: e.target.value })}
-                      className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
-                    />
-                  ) : (
-                    <input
-                      type="number"
-                      min="1"
-                      max="12"
-                      value={formData.guests}
-                      onChange={(e) => setFormData({ ...formData, guests: parseInt(e.target.value) || 1 })}
-                      className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
-                    />
-                  )}
+                  <label className="block text-xs font-medium text-slate-300 mb-1">Check-out</label>
+                  <input
+                    type="date"
+                    required
+                    min={checkIn || todayISO()}
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                  />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-slate-300 mb-1">
+                  <span className="flex items-center gap-1">
+                    <Users className="w-3.5 h-3.5 text-amber-400" /> Guests (max {room.maxGuests})
+                  </span>
+                </label>
+                <input
+                  type="number"
+                  required
+                  min={1}
+                  max={room.maxGuests}
+                  value={guests}
+                  onChange={(e) => setGuests(parseInt(e.target.value) || 1)}
+                  className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Full Name
-                  </label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">Full name</label>
                   <input
                     type="text"
                     required
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
+                    placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
-                    Direct Phone / WhatsApp
-                  </label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">Phone number</label>
                   <input
                     type="tel"
                     required
-                    placeholder="+xxxxx"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
+                    placeholder="+260 ..."
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="name@company.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
-                  Arrival Preference
-                </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(['Commercial Flight', 'Private Jet / Helipad', 'Superyacht Berth'] as const).map((trans) => (
-                    <button
-                      type="button"
-                      key={trans}
-                      onClick={() => setArrivalTransport(trans)}
-                      className={`px-2 py-2 rounded-lg text-[11px] font-medium transition border text-center ${
-                        arrivalTransport === trans
-                          ? 'border-amber-400 bg-amber-500/20 text-amber-300'
-                          : 'border-slate-800 bg-slate-950 text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      {trans === 'Private Jet / Helipad' && <Plane className="w-3.5 h-3.5 mx-auto mb-1 text-amber-400" />}
-                      {trans === 'Superyacht Berth' && <Ship className="w-3.5 h-3.5 mx-auto mb-1 text-amber-400" />}
-                      {trans === 'Commercial Flight' && <Users className="w-3.5 h-3.5 mx-auto mb-1 text-slate-400" />}
-                      <span>{trans}</span>
-                    </button>
-                  ))}
+              {/* Live estimate */}
+              <div className="p-4 rounded-xl bg-amber-950/25 border border-amber-500/30 flex items-center justify-between">
+                <div className="text-xs text-slate-300">
+                  <span className="block text-slate-400 uppercase font-semibold text-[10px]">Estimated total</span>
+                  {nights > 0 ? (
+                    <span>
+                      {nights} night{nights > 1 ? 's' : ''} × {kwacha(room.pricePerNight)}
+                    </span>
+                  ) : (
+                    <span>Select dates to see your estimate</span>
+                  )}
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
-                  Specific Requests & Requirements
-                </label>
-                <textarea
-                  rows={2}
-                  placeholder="Dietary requests, diligence documentation, meeting room requirements..."
-                  value={formData.specialRequests}
-                  onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-amber-400"
-                />
+                <span className="text-2xl font-bold text-amber-300 font-mono">
+                  {nights > 0 ? kwacha(estimated) : '—'}
+                </span>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl text-xs sm:text-sm font-semibold gold-btn shadow-lg"
+                className="w-full py-3 rounded-xl text-sm font-bold gold-btn shadow-lg flex items-center justify-center gap-2"
               >
-                Submit VIP Inquiry to Seedwel Advisory
+                <CalendarCheck className="w-4 h-4" />
+                <span>Request Booking</span>
               </button>
+
+              <p className="text-[11px] text-slate-500 text-center">
+                Sample rates in Zambian Kwacha. Prefer to call?{' '}
+                <a href={HOTEL_INFO.phoneHref} className="text-amber-300 hover:underline inline-flex items-center gap-1">
+                  <Phone className="w-3 h-3" /> {HOTEL_INFO.phone}
+                </a>
+              </p>
             </form>
           </div>
         )}

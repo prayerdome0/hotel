@@ -2,33 +2,27 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ForSaleBanner from "@/components/ForSaleBanner";
-import { HOTEL_INFO } from "@/data/hotelData";
 
 export const metadata: Metadata = {
-  title: "SWDL | Ultra-Luxury 5-Star Resort & Prime Hospitality Asset For Sale",
+  title: "Zambezi Palms Hotel & Conference Centre | Lusaka, Zambia",
   description:
-    "SWDL is an iconic 5-star coastal resort & residential enclave on 5.8 freehold acres, now available for private acquisition. Copyrighted by Seedwel Investment Limited. Contact: xxxxx, Email: xxxxx, Address: abc.",
+    "Zambezi Palms Hotel & Conference Centre in Lusaka, Zambia — comfortable rooms & suites, conference halls, restaurant, dining hall, weddings and events. Book your stay or event with us.",
   keywords: [
-    "SWDL",
-    "Seedwel Investment Limited",
-    "Hotel For Sale",
-    "Hospitality Commercial Real Estate",
-    "Luxury Resort Acquisition",
-    "5-Star Hotel Freehold",
-    "Deal Room",
-    "Luxury Penthouse Suites",
+    "Hotel Lusaka",
+    "Zambezi Palms Hotel",
+    "Conference centre Zambia",
+    "Hotel rooms Lusaka",
+    "Wedding venue Lusaka",
+    "Restaurant Lusaka",
+    "Events hall Zambia",
   ],
-  authors: [{ name: "Seedwel Investment Limited" }],
-  creator: "Seedwel Investment Limited",
-  publisher: "Seedwel Investment Limited",
   openGraph: {
-    title: "SWDL | 5-Star Luxury Resort & Asset For Sale",
+    title: "Zambezi Palms Hotel & Conference Centre",
     description:
-      "240 Keys, 5.8 Freehold Acres, $16.4M EBITDA. Prime commercial hospitality asset available for acquisition by Seedwel Investment Limited.",
-    siteName: "SWDL Hotel & Residences",
+      "Comfortable rooms, conference facilities, restaurant and event spaces in Lusaka, Zambia.",
+    siteName: "Zambezi Palms Hotel",
     type: "website",
-    locale: "en_US",
+    locale: "en_ZM",
   },
 };
 
@@ -40,7 +34,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-400 selection:text-slate-950">
-        <ForSaleBanner />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
