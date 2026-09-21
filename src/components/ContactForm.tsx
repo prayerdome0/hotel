@@ -33,23 +33,23 @@ export default function ContactForm({ defaultTab = 'hotel' }: { defaultTab?: Tab
   return (
     <div className="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
       {/* Tabs */}
-      <div className="grid grid-cols-2 gap-2 p-1.5 bg-slate-950 rounded-xl border border-slate-800">
+      <div className="grid grid-cols-2 gap-2 p-1.5 bg-white rounded-xl border border-gray-200">
         <button
           type="button"
           onClick={() => { setTab('hotel'); setSubmitted(false); }}
           className={`py-2.5 px-3 text-center text-xs sm:text-sm font-semibold rounded-lg transition flex items-center justify-center gap-2 ${
-            tab === 'hotel' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'text-slate-400 hover:text-white'
+            tab === 'hotel' ? 'bg-red-500/20 text-red-300 border border-red-500/40' : 'text-gray-600 hover:text-white'
           }`}
         >
           <BedDouble className="w-4 h-4" />
-          <span>Hotel Inquiry</span>
+          <span>Lodge Inquiry</span>
         </button>
         <button
           type="button"
           id="website"
           onClick={() => { setTab('website'); setSubmitted(false); }}
           className={`py-2.5 px-3 text-center text-xs sm:text-sm font-semibold rounded-lg transition flex items-center justify-center gap-2 scroll-mt-32 ${
-            tab === 'website' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'text-slate-400 hover:text-white'
+            tab === 'website' ? 'bg-red-500/20 text-red-300 border border-red-500/40' : 'text-gray-600 hover:text-white'
           }`}
         >
           <Code2 className="w-4 h-4" />
@@ -63,19 +63,19 @@ export default function ContactForm({ defaultTab = 'hotel' }: { defaultTab?: Tab
             <CheckCircle2 className="w-8 h-8" />
           </div>
           <h3 className="text-2xl font-serif-luxury font-bold text-white">Inquiry Sent</h3>
-          <p className="text-sm text-slate-300 max-w-md mx-auto">
+          <p className="text-sm text-gray-700 max-w-md mx-auto">
             Thank you, <strong className="text-white">{form.name}</strong>. Your{' '}
             {tab === 'hotel' ? 'hotel' : 'website'} inquiry has been received
             {tab === 'website' && (
               <>
-                {' '}for a <strong className="text-amber-300">{form.service}</strong>
+                {' '}for a <strong className="text-red-300">{form.service}</strong>
               </>
             )}
             . This is a demo form — no message was actually delivered.
           </p>
           {tab === 'website' && (
             <div className="max-w-md mx-auto space-y-2">
-              <p className="text-xs text-slate-400">Prefer instant chat? Message the developer on WhatsApp:</p>
+              <p className="text-xs text-gray-600">Prefer instant chat? Message the developer on WhatsApp:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {DEVELOPER_INFO.phones.map((p) => (
                   <a
@@ -100,48 +100,48 @@ export default function ContactForm({ defaultTab = 'hotel' }: { defaultTab?: Tab
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">Name *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Name *</label>
               <input
                 type="text"
                 required
                 placeholder="Your full name"
                 value={form.name}
                 onChange={(e) => set('name', e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">Phone Number *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Phone Number *</label>
               <input
                 type="tel"
                 required
                 placeholder="+260 ..."
                 value={form.phone}
                 onChange={(e) => set('phone', e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">Email *</label>
+            <label className="block text-xs font-medium text-gray-700 mb-1">Email *</label>
             <input
               type="email"
               required
               placeholder="you@example.com"
               value={form.email}
               onChange={(e) => set('email', e.target.value)}
-              className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+              className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
             />
           </div>
 
           {tab === 'hotel' ? (
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">What do you need? *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">What do you need? *</label>
               <select
                 value={form.inquiryType}
                 onChange={(e) => set('inquiryType', e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
               >
                 {HOTEL_INQUIRY_TYPES.map((t) => (
                   <option key={t}>{t}</option>
@@ -150,11 +150,11 @@ export default function ContactForm({ defaultTab = 'hotel' }: { defaultTab?: Tab
             </div>
           ) : (
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">Service Required *</label>
+              <label className="block text-xs font-medium text-gray-700 mb-1">Service Required *</label>
               <select
                 value={form.service}
                 onChange={(e) => set('service', e.target.value)}
-                className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+                className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
               >
                 {WEBSITE_SERVICES.map((s) => (
                   <option key={s}>{s}</option>
@@ -164,7 +164,7 @@ export default function ContactForm({ defaultTab = 'hotel' }: { defaultTab?: Tab
           )}
 
           <div>
-            <label className="block text-xs font-medium text-slate-300 mb-1">Message *</label>
+            <label className="block text-xs font-medium text-gray-700 mb-1">Message *</label>
             <textarea
               required
               rows={4}
@@ -175,7 +175,7 @@ export default function ContactForm({ defaultTab = 'hotel' }: { defaultTab?: Tab
               }
               value={form.message}
               onChange={(e) => set('message', e.target.value)}
-              className="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-lg text-sm text-white focus:outline-none focus:border-amber-400"
+              className="w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-white focus:outline-none focus:border-red-400"
             />
           </div>
 
@@ -210,7 +210,7 @@ export default function ContactForm({ defaultTab = 'hotel' }: { defaultTab?: Tab
               </div>
             )}
           </div>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-gray-500">
             Demo form for showcase purposes — connect it to email or WhatsApp to receive real inquiries.
           </p>
         </form>

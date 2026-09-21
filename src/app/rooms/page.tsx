@@ -38,15 +38,15 @@ export default function RoomsPage() {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mr-1">Filter:</span>
+          <span className="text-xs font-bold uppercase tracking-wider text-gray-600 mr-1">Filter:</span>
           {CATEGORIES.map((c) => (
             <button
               key={c}
               onClick={() => setCategory(c)}
               className={`px-4 py-2 rounded-lg text-xs font-semibold transition ${
                 category === c
-                  ? 'bg-amber-500 text-slate-950 shadow-md'
-                  : 'bg-slate-900 border border-slate-700 text-slate-300 hover:text-white'
+                  ? 'bg-red-500 text-white shadow-md'
+                  : 'bg-gray-50 border border-gray-300 text-gray-700 hover:text-white'
               }`}
             >
               {c}
@@ -54,10 +54,10 @@ export default function RoomsPage() {
           ))}
         </div>
 
-        <div className="p-4 rounded-xl bg-slate-900/70 border border-slate-800 text-xs text-slate-400 flex gap-2">
-          <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-gray-50/70 border border-gray-200 text-xs text-gray-600 flex gap-2">
+          <Info className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
           <span>
-            All rates below are <strong className="text-slate-200">sample rates in Zambian Kwacha (ZMW)</strong> shown
+            All rates below are <strong className="text-gray-800">sample rates in Zambian Kwacha (ZMW)</strong> shown
             for demonstration. Check-in 14:00 • Check-out 11:00 • Breakfast available on request.
           </span>
         </div>
@@ -78,7 +78,7 @@ export default function RoomsPage() {
           />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 mt-6">
             {['Free Wi-Fi', 'Air conditioning', 'Flat-screen TV', 'Private bathroom', 'Daily housekeeping', 'Room service'].map((x) => (
-              <div key={x} className="px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 text-center">
+              <div key={x} className="px-3 py-2.5 rounded-xl bg-white border border-gray-200 text-xs text-gray-800 text-center">
                 {x}
               </div>
             ))}

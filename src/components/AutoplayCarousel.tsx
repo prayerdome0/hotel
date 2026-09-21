@@ -77,7 +77,7 @@ export default function AutoplayCarousel({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="space-y-2">
             {badge && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold uppercase tracking-wider">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-300 text-xs font-semibold uppercase tracking-wider">
                 {badge}
               </span>
             )}
@@ -87,7 +87,7 @@ export default function AutoplayCarousel({
               </h2>
             )}
             {subtitle && (
-              <p className="text-sm sm:text-base text-slate-400 max-w-2xl">
+              <p className="text-sm sm:text-base text-gray-600 max-w-2xl">
                 {subtitle}
               </p>
             )}
@@ -97,10 +97,10 @@ export default function AutoplayCarousel({
             {actionButton}
 
             {/* Controls */}
-            <div className="flex items-center gap-2 bg-slate-900/90 border border-amber-500/30 rounded-lg p-1">
+            <div className="flex items-center gap-2 bg-gray-50/90 border border-red-500/30 rounded-lg p-1">
               <button
                 onClick={prev}
-                className="p-2 rounded-md hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 transition"
+                className="p-2 rounded-md hover:bg-red-500/20 text-gray-700 hover:text-red-300 transition"
                 aria-label="Previous items"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -108,7 +108,7 @@ export default function AutoplayCarousel({
 
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="p-2 rounded-md hover:bg-amber-500/20 text-amber-400 hover:text-amber-300 transition"
+                className="p-2 rounded-md hover:bg-red-500/20 text-red-400 hover:text-red-300 transition"
                 aria-label={isPlaying ? 'Pause autoplay' : 'Resume autoplay'}
                 title={isPlaying ? 'Pause autoplay' : 'Play autoplay'}
               >
@@ -117,7 +117,7 @@ export default function AutoplayCarousel({
 
               <button
                 onClick={next}
-                className="p-2 rounded-md hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 transition"
+                className="p-2 rounded-md hover:bg-red-500/20 text-gray-700 hover:text-red-300 transition"
                 aria-label="Next items"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -156,8 +156,8 @@ export default function AutoplayCarousel({
               onClick={() => setCurrentIndex(idx)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 currentIndex === idx
-                  ? 'w-8 bg-amber-400'
-                  : 'w-2 bg-slate-700 hover:bg-slate-500'
+                  ? 'w-8 bg-red-400'
+                  : 'w-2 bg-gray-300 hover:bg-gray-500'
               }`}
               aria-label={`Go to slide page ${idx + 1}`}
             />

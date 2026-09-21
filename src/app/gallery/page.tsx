@@ -5,7 +5,7 @@ import { Eye, Maximize2 } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import ImageLightbox from '@/components/ImageLightbox';
 import DeveloperCTA from '@/components/DeveloperCTA';
-import HotelImage from '@/components/HotelImage';
+import LodgeImage from '@/components/LodgeImage';
 import { GALLERY_PHOTOS, GALLERY_CATEGORIES } from '@/data/galleryData';
 
 export default function GalleryPage() {
@@ -24,7 +24,7 @@ export default function GalleryPage() {
     <div className="space-y-14 sm:space-y-16 pb-20">
       <PageHero
         badge="Photo Gallery"
-        title="Take a Look Around the Hotel"
+        title="Take a Look Around the Lodge"
         subtitle="Browse photos of our exterior, reception, rooms, conference halls, restaurant, dining hall, gardens and food. Tap any photo to view it full-screen."
         image="/images/garden.jpg"
       />
@@ -38,8 +38,8 @@ export default function GalleryPage() {
                 onClick={() => setCategory(c)}
                 className={`px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition shrink-0 ${
                   category === c
-                    ? 'bg-amber-500 text-slate-950 shadow-md'
-                    : 'bg-slate-900 border border-slate-700 text-slate-300 hover:text-white'
+                    ? 'bg-red-500 text-white shadow-md'
+                    : 'bg-gray-50 border border-gray-300 text-gray-700 hover:text-white'
                 }`}
               >
                 {c}
@@ -55,7 +55,7 @@ export default function GalleryPage() {
           </button>
         </div>
 
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-gray-500">
           Showing {filtered.length} photo{filtered.length !== 1 ? 's' : ''}{category !== 'All' && ` in ${category}`}
         </p>
 
@@ -64,31 +64,31 @@ export default function GalleryPage() {
             <div
               key={photo.id}
               onClick={() => openLightbox(idx)}
-              className="group relative h-64 sm:h-72 rounded-2xl overflow-hidden cursor-pointer border border-slate-800 hover:border-amber-500/50 hover:shadow-xl transition-all"
+              className="group relative h-64 sm:h-72 rounded-2xl overflow-hidden cursor-pointer border border-gray-200 hover:border-red-500/50 hover:shadow-xl transition-all"
             >
-              <HotelImage
+              <LodgeImage
                 src={photo.url}
                 alt={photo.title}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-90 transition" />
+              <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/20 to-transparent opacity-80 group-hover:opacity-90 transition" />
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-1 rounded-lg bg-slate-950/80 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[11px] font-bold uppercase">
+                <span className="px-2.5 py-1 rounded-lg bg-white/80 backdrop-blur-md text-red-300 border border-red-500/30 text-[11px] font-bold uppercase">
                   {photo.category}
                 </span>
               </div>
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                <span className="p-3 rounded-full bg-slate-950/80 border border-amber-400 text-amber-300 shadow-xl">
+                <span className="p-3 rounded-full bg-white/80 border border-red-400 text-red-300 shadow-xl">
                   <Eye className="w-5 h-5" />
                 </span>
               </div>
               <div className="absolute bottom-3 left-3 right-3 space-y-1">
-                <h4 className="text-sm font-bold text-white group-hover:text-amber-300 transition line-clamp-1">
+                <h4 className="text-sm font-bold text-white group-hover:text-red-300 transition line-clamp-1">
                   {photo.title}
                 </h4>
-                <p className="text-[11px] text-slate-300 line-clamp-2">{photo.caption}</p>
+                <p className="text-[11px] text-gray-700 line-clamp-2">{photo.caption}</p>
               </div>
             </div>
           ))}

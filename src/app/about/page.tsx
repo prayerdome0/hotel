@@ -6,7 +6,7 @@ import { CheckCircle2, ArrowRight, BedDouble, Presentation, UtensilsCrossed, Tre
 import PageHero from '@/components/PageHero';
 import SectionHeading from '@/components/SectionHeading';
 import DeveloperCTA from '@/components/DeveloperCTA';
-import HotelImage from '@/components/HotelImage';
+import LodgeImage from '@/components/LodgeImage';
 import { HOTEL_INFO } from '@/data/hotelData';
 
 const PILLARS = [
@@ -41,8 +41,8 @@ export default function AboutPage() {
     <div className="space-y-14 sm:space-y-16 pb-20">
       <PageHero
         badge="About Us"
-        title="Welcome to Zambezi Palms Hotel & Conference Centre"
-        subtitle="A premium modern hotel in Lusaka, Zambia — built for comfortable stays, productive meetings and memorable celebrations."
+        title="Welcome to SDL Lodge & Events"
+        subtitle="A premium modern hotel in XXXX XXXX — built for comfortable stays, productive meetings and memorable celebrations."
         image="/images/exterior-day.jpg"
       />
 
@@ -50,10 +50,10 @@ export default function AboutPage() {
         <div className="space-y-4">
           <SectionHeading
             badge="Our story"
-            title="One Hotel for Stays, Business & Celebrations"
-            subtitle="Zambezi Palms brings together everything a modern traveller, company or family needs: restful rooms, professional meeting venues, good food and friendly Zambian hospitality."
+            title="One Lodge for Stays, Business & Celebrations"
+            subtitle="SDL brings together everything a modern traveller, company or family needs: restful rooms, professional meeting venues, good food and friendly Zambian hospitality."
           />
-          <div className="space-y-3 text-sm text-slate-300 leading-relaxed">
+          <div className="space-y-3 text-sm text-gray-700 leading-relaxed">
             <p>
               Business travellers appreciate our quiet rooms, fast Wi-Fi, work spaces and well-equipped conference
               halls. Families enjoy our spacious family rooms, restaurant and gardens. And event organisers — from
@@ -64,7 +64,7 @@ export default function AboutPage() {
               every guest feel welcome.
             </p>
           </div>
-          <ul className="space-y-2 text-sm text-slate-300">
+          <ul className="space-y-2 text-sm text-gray-700">
             {[
               'Comfortable, well-kept rooms & suites',
               'Professional conference & event venues',
@@ -72,21 +72,21 @@ export default function AboutPage() {
               'Friendly, helpful Zambian hospitality',
             ].map((t) => (
               <li key={t} className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                 <span>{t}</span>
               </li>
             ))}
           </ul>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div className="relative h-56 sm:h-72 rounded-2xl overflow-hidden border border-slate-800 col-span-2">
-            <HotelImage src="/images/reception.jpg" alt="Hotel reception" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+          <div className="relative h-56 sm:h-72 rounded-2xl overflow-hidden border border-gray-200 col-span-2">
+            <LodgeImage src="/images/reception.jpg" alt="Lodge reception" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
           </div>
-          <div className="relative h-40 sm:h-48 rounded-2xl overflow-hidden border border-slate-800">
-            <HotelImage src="/images/restaurant.jpg" alt="Hotel restaurant" fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
+          <div className="relative h-40 sm:h-48 rounded-2xl overflow-hidden border border-gray-200">
+            <LodgeImage src="/images/restaurant.jpg" alt="Lodge restaurant" fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
           </div>
-          <div className="relative h-40 sm:h-48 rounded-2xl overflow-hidden border border-slate-800">
-            <HotelImage src="/images/garden.jpg" alt="Hotel gardens" fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
+          <div className="relative h-40 sm:h-48 rounded-2xl overflow-hidden border border-gray-200">
+            <LodgeImage src="/images/garden.jpg" alt="Lodge gardens" fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
           </div>
         </div>
       </section>
@@ -100,12 +100,12 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {PILLARS.map((p) => (
             <Link key={p.title} href={p.href} className="glass-card glass-card-hover rounded-2xl p-6 flex flex-col gap-3 group">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/12 border border-amber-500/30 flex items-center justify-center text-amber-400">
+              <div className="w-12 h-12 rounded-2xl bg-red-500/12 border border-red-500/30 flex items-center justify-center text-red-400">
                 <p.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-bold text-white group-hover:text-amber-300 transition">{p.title}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed flex-1">{p.desc}</p>
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-amber-300">
+              <h3 className="text-base font-bold text-white group-hover:text-red-300 transition">{p.title}</h3>
+              <p className="text-xs text-gray-600 leading-relaxed flex-1">{p.desc}</p>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-red-300">
                 <span>Learn more</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
@@ -117,7 +117,7 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="glass-card rounded-2xl p-6 sm:p-10 text-center space-y-4">
           <h2 className="text-xl sm:text-2xl font-serif-luxury font-bold text-white">Visit Us in {HOTEL_INFO.location}</h2>
-          <p className="text-sm text-slate-400 max-w-2xl mx-auto">
+          <p className="text-sm text-gray-600 max-w-2xl mx-auto">
             {HOTEL_INFO.address} • {HOTEL_INFO.phone} • {HOTEL_INFO.email}
           </p>
           <div className="flex flex-wrap justify-center gap-3">

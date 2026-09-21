@@ -6,14 +6,14 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
   {
     id: 'g1',
     url: '/images/exterior-day.jpg',
-    title: 'Hotel Exterior & Entrance',
+    title: 'Lodge Exterior & Entrance',
     category: 'Exterior',
-    caption: 'The front of Zambezi Palms Hotel with its covered entrance and landscaped driveway.',
+    caption: 'The front of SDL Lodge with its covered entrance and landscaped driveway.',
   },
   {
     id: 'g2',
     url: u('1566073771259-6a8506099945'),
-    title: 'Hotel at Dusk',
+    title: 'Lodge at Dusk',
     category: 'Exterior',
     caption: 'The hotel glowing in the evening — well-lit entrance and secure surroundings.',
   },
